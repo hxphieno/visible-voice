@@ -11,12 +11,14 @@ public class FlyingDango: MonoBehaviour
     public float speedXY=1;
     public float speedZ=1;
     public float second = 3;
-    
-    public float distance=10;
+    public bool circleDir=false;
+    private float distance=5f;
 
     private Vector3 initPosition;
     private float delay = 0;
     private Rigidbody rb;
+    private float rotationSpeed = 1.3f;//球的转速
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +36,27 @@ public class FlyingDango: MonoBehaviour
     void Update()
     {
         delay += Time.deltaTime;
-        if (GetR(transform.position, targetObject.position)<distance) {
-            ///TODO:将球移动到某个位置后开始做圆周运动，最好的解决方案是AddForce但是不想写物理公式
-            ///退而求其次可以试着将物体的位置和速度都移动到一个指定位置再开始移动，但是需要设置的变量就会较多。
+        Debug.Log(GetR(transform.position, targetObject.position));
+        if (GetR(transform.position, targetObject.position) <= distance)
+        {
+            Vector3 direction = transform.position - targetObject.position;
+            float angle = Mathf.Atan2(direction.z, direction.x);  // 获取当前角度（x和z）
 
+            // 因为有的是两个位置，所以用极坐标算了，不想再存一个角度变量了已经够多了……
+            if(circleDir) {
+                angle += rotationSpeed * Time.deltaTime;  
+            }
+            else
+            {
+                angle -= rotationSpeed * Time.deltaTime; 
+            }
+                float radius = new Vector2(direction.x, direction.z).magnitude;  // 计算在x-z平面的半径
+            Vector3 newPosition = new Vector3(
+                Mathf.Cos(angle) * radius,
+                transform.position.y,  
+                Mathf.Sin(angle) * radius
+            ) + new Vector3(targetObject.position.x, 0, targetObject.position.z);
+            transform.position = newPosition;
         }
         else if (delay > second)
         {
