@@ -8,8 +8,8 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         // 持久数据路径
-        //savePath = Application.persistentDataPath + "/savedata.json";
-        savePath = Application.dataPath + "/savedata.json";
+        savePath = Application.persistentDataPath + "/savedata.json";
+        // savePath = Application.dataPath + "/savedata.json";
     }
 
     public void SaveGame(SaveData data)
