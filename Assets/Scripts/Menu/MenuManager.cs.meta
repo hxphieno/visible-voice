@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 90256a90b1bcc8443889a8ac3de18fd5
+guid: 93ee291b84bc1de43828d304e5f47d85
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - plotManager: {instanceID: 0}
-  - objTowatingF: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
